@@ -137,6 +137,7 @@ void buttonRoutine3(void) {
 }
 
 void buttonRoutine4(void) {
+  int gameWon = 0;
   static int code[4];
   static int roundNumber = 0;
   int *result;
@@ -146,6 +147,7 @@ void buttonRoutine4(void) {
     for(int i = 0; i < 4; i++) code[i] = rand() % 6;
   }
   result = validateGuess(guess, code, 4);
+  if(result[0] == 4 && result[1] == 0) gameWon = 1;
   if(roundNumber < 7) { //if theres space to display all the rounds
     for(int i = 4 * (roundNumber + 1); i < 4 * (roundNumber + 2); i++) ledsBig[i] = colors[guessBuffer[i]]; //print guess
     for(int i = 4 * roundNumber; i < 4 * (roundNumber + 1); i++) { //print result
@@ -177,7 +179,7 @@ void buttonRoutine4(void) {
   }
   FastLED.show();
   roundNumber++;
-  if(result[0] == 4 && result[1] == 0) { //if game is won
+  if(gameWon) { //if game is won
     for(int blink = 0; blink < 3; blink++) { //blink
       for(int i = 0; i < 4; i++) ledsBig[i] = colors[guessBuffer[i]];
       FastLED.show();
