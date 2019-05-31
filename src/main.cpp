@@ -13,7 +13,7 @@
 #define LED_TYPE_SMALL WS2812B
 #define COLOR_ORDER_BIG GRB
 #define COLOR_ORDER_SMALL GRB
-#define BRIGHTNESS 156
+#define BRIGHTNESS 50 //156
 
 //CRGB colors[8] = {CRGB::Red, CRGB::Blue, CRGB::Green, CRGB::Orange, CRGB::Magenta, CRGB::DarkViolet, CRGB::Lime, CRGB::Tomato};
 CRGB colors[8] = {CHSV(0, 232, BRIGHTNESS), //red
@@ -149,14 +149,14 @@ void buttonRoutine4(void) {
   result = validateGuess(guess, code, 4);
   if(result[0] == 4 && result[1] == 0) gameWon = 1;
   if(roundNumber < 7) { //if theres space to display all the rounds
-    for(int i = 4 * (roundNumber + 1); i < 4 * (roundNumber + 2); i++) ledsBig[i] = colors[guessBuffer[i]]; //print guess
-    for(int i = 4 * roundNumber; i < 4 * (roundNumber + 1); i++) { //print result
+    for(int i = 0; i < 4; i++) { //print guess and result
+      ledsBig[4 * (roundNumber + 1) + i] = colors[guessBuffer[i]];
       if(result[0]) {
-        ledsSmall[i] = colors[6];
+        ledsSmall[4 * roundNumber + i] = colors[6];
         result[0]--;
       }
       else if(result[1]) {
-        ledsSmall[i] = colors[7];
+        ledsSmall[4 * roundNumber + i] = colors[7];
         result[1]--;
       }
     }
@@ -165,14 +165,14 @@ void buttonRoutine4(void) {
     for(int i = 4; i < NUM_LEDS_BIG - 4; i++) ledsBig[i] = ledsBig[i + 4]; //shift led array
     for(int i = 0; i < NUM_LEDS_SMALL - 4; i++) ledsSmall[i] = ledsSmall[i + 4];
 
-    for(int i = NUM_LEDS_BIG - 4; i < NUM_LEDS_BIG; i++) ledsBig[i] = colors[guessBuffer[i]]; //print guess
-    for(int i = NUM_LEDS_SMALL - 4; i < NUM_LEDS_SMALL; i++) { //print result
+    for(int i = 0; i < 4; i++) { //print guess and result
+      ledsBig[NUM_LEDS_BIG - 4 + i] = colors[guessBuffer[i]];
       if(result[0]) {
-        ledsSmall[i] = colors[6];
+        ledsSmall[NUM_LEDS_SMALL - 4 + i] = colors[6];
         result[0]--;
       }
       else if(result[1]) {
-        ledsSmall[i] = colors[7];
+        ledsSmall[NUM_LEDS_SMALL - 4 + i] = colors[7];
         result[1]--;
       }
     }
