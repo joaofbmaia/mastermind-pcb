@@ -159,6 +159,7 @@ void buttonRoutine4(void) {
         ledsSmall[4 * roundNumber + i] = colors[7];
         result[1]--;
       }
+      else ledsSmall[4 * roundNumber + i] = CRGB::Black;
     }
   }
   else { //theres no space left... will start to ditch older rounds
@@ -175,6 +176,7 @@ void buttonRoutine4(void) {
         ledsSmall[NUM_LEDS_SMALL - 4 + i] = colors[7];
         result[1]--;
       }
+      else ledsSmall[NUM_LEDS_SMALL - 4 + i] = CRGB::Black;
     }
   }
   FastLED.show();
